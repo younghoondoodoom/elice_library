@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <style>
+        img {
+            width: 600px;
+            height: 400px;
+            object-fit: contain;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ book.book_name }} 상세 페이지{% endblock %}
+
+{% block page_content %}
+<div class="card" style="width: 100%;">
+  <img src={{ book.book_img_path }} class="card-img-top" alt="{{ book.book_name }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ book.book_name }}</h5>
+    <p class="card-text">{{ book.description }}</p>
+    <a href="#" class="btn btn-primary">대여하기</a>
+  </div>
+</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">책 이름</th>
+      <td>{{ book.book_name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">평점</th>
+      <td>⭐️{{ book.rating }}</td>
+    </tr>
+    <tr>
+      <th scope="row">출판사</th>
+      <td>{{ book.publisher }}</td>
+    </tr>
+    <tr>
+      <th scope="row">저자</th>
+      <td>{{ book.author }}</td>
+    </tr>
+    <tr>
+      <th scope="row">출판일</th>
+      <td>{{ book.publication_date }}</td>
+    </tr>
+    <tr>
+      <th scope="row">페이지 수</th>
+      <td>{{ book.pages }}</td>
+    </tr>
+    <tr>
+      <th scope="row">ISBN</th>
+      <td>{{ book.isbn }}</td>
+    </tr>
+    <tr>
+      <th scope="row">link</th>
+      <td>{{ book.link }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>리뷰</h2>
+<h5>{{ review_info|length }}개의 리뷰가 있습니다.</h5>
+<h5>평균 : {{ average }}점</h5>
+{% for review in review_info %}
+    <div>{{ review.rating }}</div> {{ review.content }} {{ review.update_time }}
+    {% if session['user_id'] == review.user_id %}
+        <a class="btn btn-danger btn-sm" href="{{ url_for('detail.delete_review', id=book.id, review_id = review.id) }}">삭제</a>
+    {% endif %}
+{% endfor %}
+
+
+{% if session.get('user_id') %}
+    <h3>리뷰 작성</h3>
+    <form action="{{ url_for('detail.write_review', id=book.id) }}" method="post">
+        <select name="star">
+            <option value="1">⭐️</option>
+            <option value="2">⭐️⭐️</option>
+            <option value="3">⭐️⭐️⭐️</option>
+            <option value="4">⭐️⭐️⭐️⭐️</option>
+            <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+        </select>
+        <div class="form-group">
+            <label for="review">리뷰</label>
+            <input class="form-control" name="review" id="review" placeholder="리뷰를 작성해주세요."></input> 
+        </div>
+        <input class="btn btn-primary" type="submit" value="리뷰 올리기">
+    </form>
+{% endif %}
+{% endblock %}

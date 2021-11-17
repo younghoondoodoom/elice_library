@@ -1,10 +1,18 @@
-from flask import Blueprint, render_template, request, url_for, session, redirect, flash
+from flask import Blueprint, render_template, request, url_for, session, redirect, flash, g
 from db_connect import db
 from models.models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 bp = Blueprint('user', __name__, url_prefix='/user')
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+    if login is None:
+        g.user = None
+    else:
+        g.user = db.session.query(UserInfo).filter(UserInfo.user_id == user_id).first()
 
 
 @bp.route('/register', methods=['GET', 'POST'])

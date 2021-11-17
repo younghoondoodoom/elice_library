@@ -40,9 +40,11 @@
         {% for book in book_list %}
         <div class="col">
             <div class="card">
-                <img src="{{ book.book_img_path }}" class="card-img-top" alt="{{ book.book_name }}">
+                <a href="/{{ book.id }}">
+                    <img src= "{{ book.book_img_path }}" class="card-img-top" alt="{{ book.book_name }}">
+                </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ book.book_name }}</h5>
+                    <a class="card-title" href="/{{ book.id }}">{{ book.book_name }}</a>
                     <p class="card-text">{{ book.stock }}권 남음</p>
                     <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">대여하기</a>
                 </div>
