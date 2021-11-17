@@ -8,6 +8,13 @@ app.register_blueprint(main_view.bp)
 app.register_blueprint(user_view.bp)
 app.register_blueprint(detail_view.bp)
 
+<<<<<<< HEAD
+=======
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:dudgns2684@127.0.0.1:3306/book_borrow" #꼭 내 루트 비밀번호로 바꿔줘야 함!!
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+
+app.secret_key = "dudgns2684"
+>>>>>>> bd9e0fafc502b1f8addc03f1ece0e7f04b240022
 
 db.init_app(app)
 
