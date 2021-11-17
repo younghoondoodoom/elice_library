@@ -1,12 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>도서관 대출 서비스</title>
 </head>
-<body>
-    <p>hello world</p>
+<>
+    {% if book_list %}
+        {% for book in book_list %}
+            <img src= "{{ book.book_img_path }}" alt="{{ book.book_name }}">
+            <p>{{ book.book_name }}</p>
+            <p>{{ book.stock }}권 남음</p>
+            <input type="submit" value="대여하기">
+        {% endfor %}
+    {% else %}
+        <p>책이 없어요..</p>
+    {% endif %}
 </body>
-</html>
+</html> -->
+
+{% extends "base.html" %}
+
+{% block style %}
+    <style>
+        img {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}메인 페이지{% endblock %}
+
+{% block page_content %}    
+    {% if book_list %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for book in book_list %}
+        <div class="col">
+            <div class="card">
+                <img src="{{ book.book_img_path }}" class="card-img-top" alt="{{ book.book_name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.book_name }}</h5>
+                    <p class="card-text">{{ book.stock }}권 남음</p>
+                    <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">대여하기</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p>책이 없습니다.</p>
+    {% endif %}
+{% endblock %}

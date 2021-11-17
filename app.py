@@ -1,13 +1,15 @@
 from flask import Flask
 from db_connect import db
-import pymysql
 import config
-from views import main_view
+from views import main_view, user_view
 
 app = Flask(__name__)
-app.register_blueprint(main_view.bp)
 
-app.config.from_object(config)
+app.register_blueprint(main_view.bp)
+app.register_blueprint(user_view.bp)
+
+
+
 
 db.init_app(app)
 
