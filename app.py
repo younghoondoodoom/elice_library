@@ -8,6 +8,11 @@ app.register_blueprint(main_view.bp)
 app.register_blueprint(user_view.bp)
 app.register_blueprint(detail_view.bp)
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 09b8da86b4fb231d54382adbafe7ee3a0335011d
 db.init_app(app)
 
 if __name__ == '__main__':
