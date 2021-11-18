@@ -10,7 +10,6 @@ app.register_blueprint(detail_view.bp)
 app.register_blueprint(turn_view.bp)
 
 
-
 db.init_app(app)
 
 if __name__ == '__main__':

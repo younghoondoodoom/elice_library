@@ -15,6 +15,7 @@ def load_logged_in_user():
         g.user = UserInfo.query.filter(UserInfo.user_id == user_id).first()
 
 
+
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':

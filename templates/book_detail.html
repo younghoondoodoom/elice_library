@@ -27,6 +27,19 @@
   <tbody>
     <tr>
       <th scope="row">제목</th>
+
+<div class="card" style="width: 100%;">
+  <img src={{ book.book_img_path }} class="card-img-top" alt="{{ book.book_name }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ book.book_name }}</h5>
+    <p class="card-text">{{ book.description }}</p>
+    <a href="#" class="btn btn-primary">대여하기</a>
+  </div>
+</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">책 이름</th>
       <td>{{ book.book_name }}</td>
     </tr>
     <tr>
@@ -103,7 +116,6 @@
   </div>
 </div>
 {% endif %}
-
 <div class="card" style="width: 100%%;">
   <div class="card-header">
     <h3>리뷰</h3>
@@ -123,5 +135,4 @@
     {% endfor %}
   </ul>
 </div>
-
 {% endblock %}

@@ -53,6 +53,7 @@ class BorrowInfo(db.Model):
     book_name       = db.Column(db.String(256), nullable = False)
     borrow_start    = db.Column(db.DateTime, default=datetime.utcnow)
     borrow_end      = db.Column(db.DateTime)
+
     
 class BookReview(db.Model):
     __tablename__ = 'bookreview'

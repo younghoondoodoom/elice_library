@@ -4,6 +4,7 @@ from db_connect import db
 
 bp = Blueprint('detail', __name__, url_prefix='/detail')
 
+
 @bp.route('/<int:id>')
 def home(id):
     book = BookInfo.query.filter(BookInfo.id == id).first()
