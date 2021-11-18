@@ -15,6 +15,13 @@ def borrow(book_id):
     user_id = session['user_id']
     book_name = book.book_name
     borrow = BorrowInfo(user_id = user_id, book_id = book_id, book_name = book_name)
+    
+    already_borrowed = BorrowInfo.query.filter(BorrowInfo.book_id == book_id).first()
+    
+    if already_borrowed:
+        flash('이미 대여한 책입니다.')
+        return redirect(url_for('main.home'))
+    
     if book.stock > 0:
         book.stock = book.stock - 1
         db.session.add(borrow)

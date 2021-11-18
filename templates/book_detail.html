@@ -27,19 +27,6 @@
   <tbody>
     <tr>
       <th scope="row">제목</th>
-
-<div class="card" style="width: 100%;">
-  <img src={{ book.book_img_path }} class="card-img-top" alt="{{ book.book_name }}">
-  <div class="card-body">
-    <h5 class="card-title">{{ book.book_name }}</h5>
-    <p class="card-text">{{ book.description }}</p>
-    <a href="#" class="btn btn-primary">대여하기</a>
-  </div>
-</div>
-<table class="table">
-  <tbody>
-    <tr>
-      <th scope="row">책 이름</th>
       <td>{{ book.book_name }}</td>
     </tr>
     <tr>
@@ -79,7 +66,7 @@
   <div class="card-body" style="margin-bottom: 1rem!important;">
     <form action="{{ url_for('detail.write_review', id=book.id) }}" method="post">
       <div class="form-check">
-          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="1">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="1" checked>
           <label class="form-check-label" for="exampleRadios1">
             ★☆☆☆☆
           </label>
@@ -116,6 +103,7 @@
   </div>
 </div>
 {% endif %}
+
 <div class="card" style="width: 100%%;">
   <div class="card-header">
     <h3>리뷰</h3>
@@ -135,4 +123,5 @@
     {% endfor %}
   </ul>
 </div>
+
 {% endblock %}

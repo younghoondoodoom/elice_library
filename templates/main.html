@@ -3,9 +3,37 @@
 {% block style %}
     <style>
         img {
-            width: 300px;
-            height: 200px;
+            height: 150px;
             object-fit: contain;
+        }
+        .card-listttt {
+            overflow: hidden;
+            margin: 0 -3px;
+            padding: 0;
+            list-style: none;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+        .card-itemm {
+            width: 230px;
+            margin: 0 3px 6px;
+            float: left;
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+        .card {
+            height: 300px;
+        }
+        .btn {
+            color: white;
+            position: absolute;
+            bottom: 8px;
+            left: 66px;
+            font-size: 18px;
         }
     </style>
 {% endblock %}
@@ -14,21 +42,23 @@
 
 {% block page_content %}    
     {% if book_list %}
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="card-group">
+        <ul class='card-listttt'>
         {% for book in book_list %}
-        <div class="col">
-            <div class="card">
-                <a href="/detail/{{ book.id }}">
-                    <img src="{{ url_for('static', filename='book_img/{0}'.format(book.book_img_path)) }}"  class="card-img-top" alt="{{ book.book_name }}">
-                </a>
-                <div class="card-body">
-                    <a class="card-title" href="/detail/{{ book.id }}">{{ book.book_name }}</a>
-                    <p class="card-text">{{ book.stock }}권 남음</p>
-                    <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn btn-primary" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>대여하기</a>
-                </div>
-            </div>
-        </div>
+                <li class="card-itemm">
+                    <div class="card">
+                        <a href="/detail/{{ book.id }}">
+                            <img src="{{ url_for('static', filename='book_img/{0}'.format(book.book_img_path)) }}"  class="card-img-top" alt="{{ book.book_name }}">
+                        </a>
+                        <div class="card-body">
+                            <a class="card-title" href="/detail/{{ book.id }}" style="font-weight:bold;">{{ book.book_name }}</a>
+                            <p class="card-text">{{ book.stock }}권 남음</p>
+                            <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>대여하기</a>
+                        </div>
+                    </div>
+                </li>
         {% endfor %}
+        <ul>
     </div>
 
     {% else %}

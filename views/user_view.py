@@ -6,16 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-    if login is None:
-        g.user = None
-    else:
-        g.user = UserInfo.query.filter(UserInfo.user_id == user_id).first()
-
-
-
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':

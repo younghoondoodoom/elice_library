@@ -26,7 +26,6 @@ def home():
 def back(book_id):
     borrow_info = BorrowInfo.query.filter(BorrowInfo.book_id == book_id).first()
     book_info = BookInfo.query.filter(BookInfo.id == book_id).first()
-    
     book_info.stock += 1
     db.session.delete(borrow_info)
     db.session.commit()

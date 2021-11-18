@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, session, redirect, flash, g
+from sqlalchemy.sql.elements import Null
 from models.models import *
 from db_connect import db
 
@@ -8,7 +9,7 @@ bp = Blueprint('detail', __name__, url_prefix='/detail')
 @bp.route('/<int:id>')
 def home(id):
     book = BookInfo.query.filter(BookInfo.id == id).first()
-    review_info = BookReview.query.filter(BookReview.book_id == id).all()
+    review_info = BookReview.query.filter(BookReview.book_id == id).order_by(BookReview.update_time.desc()).all()
     
     rating_sum, average = 0, 0
     if review_info:
@@ -18,26 +19,25 @@ def home(id):
     
     book.rating = average
     db.session.commit()    
-    
-    
 
-    if g.user:
-        return render_template('book_detail.html', book = book, review_info = review_info, average = average)
-    else:
-        flash('로그인 후 이용해주세요.')
-        return redirect(url_for('user.login'))
+    return render_template('book_detail.html', book = book, review_info = review_info, average = average)
     
 @bp.route('/write_review/<int:id>', methods=['POST'])
 def write_review(id):
-    if g.user:
+    if session['user_id']:
         user_id = session['user_id']
         book_id = id
         rating = request.form['star']
         content = request.form['review']
+        
+        if len(content) == 0 or len(rating) == 0:
+             flash('평점과 댓글은 필수 입력 사항 입니다.')
+             return redirect(url_for('detail.home', id = id))
+        
         review = BookReview(user_id = user_id, book_id = book_id, content = content, rating = rating)
         db.session.add(review)
         db.session.commit()        
-        
+    
         flash('소중한 리뷰 감사합니다!')
         
         return redirect(url_for('detail.home', id = id))
