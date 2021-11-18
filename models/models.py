@@ -2,9 +2,9 @@ from db_connect import db
 from datetime import datetime
 
 class BookInfo(db.Model):
-    __tablename__ = 'bookInfo'
+    __tablename__ = 'bookinfo'
     
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    id                  = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     book_name           = db.Column(db.String(256), nullable = False)
     publisher           = db.Column(db.String(100))
     author              = db.Column(db.String(100))
@@ -14,18 +14,21 @@ class BookInfo(db.Model):
     description         = db.Column(db.String(2000))
     link                = db.Column(db.String(1000))
     stock               = db.Column(db.Integer, default=9)
+    rating              = db.Column(db.Integer, default=0)
     book_img_path       = db.Column(db.String(50))
     
-    def __init__(self, book_name, publisher, author, publication_date, pages, isbn, description, link, like):
+    def __init__(self, book_name, publisher, author, publication_date, pages, isbn, description, link, stock, rating, book_img_path):
         self.book_name = book_name
         self.publisher = publisher
-        self. author = author
+        self.author = author
         self.publication_date = publication_date
-        self. pages = pages
+        self.pages = pages
         self.isbn = isbn
         self.description = description
         self.link = link
-        self.like = 0
+        self.stock = stock
+        self.rating = rating
+        self.book_img_path = book_img_path
         
 class UserInfo(db.Model):
     __tablename__ = 'userinfo'
@@ -42,11 +45,22 @@ class UserInfo(db.Model):
         self.user_nickname = user_nickname
         
 class BorrowInfo(db.Model):
-    __tablename__ = 'borrowInfo'
+    __tablename__ = 'borrowinfo'
     
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id         = db.Column(db.String(100), db.ForeignKey('user.id'), nullable=False)
-    book_id         = db.Column(db.Integer, db.ForeignKey('book.id'), nullable = False)
+    id              = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id         = db.Column(db.String(100), db.ForeignKey('userinfo.user_id'), nullable=False)
+    book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable = False)
     book_name       = db.Column(db.String(256), nullable = False)
     borrow_start    = db.Column(db.DateTime, default=datetime.utcnow)
-    borrow_end      = db.Column(db.String(256)) #나중에 flask에서 start +9를 해줌.
+    borrow_end      = db.Column(db.DateTime)
+    
+class BookReview(db.Model):
+    __tablename__ = 'bookreview'
+    
+    id              = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
+    user_id         = db.Column(db.String(100), db.ForeignKey('userinfo.user_id'), nullable=False)
+    book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable=False)
+    rating          = db.Column(db.Float)
+    content         = db.Column(db.String(2000))
+    update_time     = db.Column(db.DateTime, default=datetime.utcnow)
+    

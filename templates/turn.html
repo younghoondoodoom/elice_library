@@ -10,7 +10,7 @@
     </style>
 {% endblock %}
 
-{% block title %}메인 페이지{% endblock %}
+{% block title %}반납 페이지{% endblock %}
 
 {% block page_content %}    
     {% if book_list %}
@@ -23,8 +23,12 @@
                 </a>
                 <div class="card-body">
                     <a class="card-title" href="/detail/{{ book.id }}">{{ book.book_name }}</a>
-                    <p class="card-text">{{ book.stock }}권 남음</p>
-                    <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn btn-primary" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>대여하기</a>
+                    {% for borrow in borrows %}
+                        {% if book.id == borrow.book_id %}
+                            <p class="card-text">{{ borrow.borrow_start.strftime('%Y-%m-%d')  }} ~ {{ borrow.borrow_end.strftime('%Y-%m-%d') }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <a href={{ url_for('turn.back', book_id=book.id) }} class="btn btn-primary" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>반납하기</a>
                 </div>
             </div>
         </div>
@@ -32,6 +36,6 @@
     </div>
 
     {% else %}
-    <p>책이 없습니다.</p>
+    <p>대여한 책이 없습니다.</p>
     {% endif %}
 {% endblock %}

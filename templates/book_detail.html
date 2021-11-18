@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <style>
+        img {
+            width: 600px;
+            height: 400px;
+            object-fit: contain;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}{{ book.book_name }} 상세 페이지{% endblock %}
+
+{% block page_content %}
+<div class="clearfix">
+  <img src={{ url_for('static', filename='book_img/{0}'.format(book.book_img_path)) }} class="col-md-6 float-md-end mb-3 ms-md-3" alt="{{ book.book_name }}">
+
+  <h5 class="card-title">{{ book.book_name }}</h5>
+
+  <p class="card-text">{{ book.description }}</p>
+
+  <a href="{{ url_for('main.borrow', book_id=book.id) }}" class="btn btn-primary" style='background-color: #7979D3;'>대여하기</a>
+</div>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">제목</th>
+      <td>{{ book.book_name }}</td>
+    </tr>
+    <tr>
+      <th scope="row">평점</th>
+      <td>★{{ book.rating }}</td>
+    </tr>
+    <tr>
+      <th scope="row">출판사</th>
+      <td>{{ book.publisher }}</td>
+    </tr>
+    <tr>
+      <th scope="row">저자</th>
+      <td>{{ book.author }}</td>
+    </tr>
+    <tr>
+      <th scope="row">출판일</th>
+      <td>{{ book.publication_date }}</td>
+    </tr>
+    <tr>
+      <th scope="row">페이지 수</th>
+      <td>{{ book.pages }}</td>
+    </tr>
+    <tr>
+      <th scope="row">ISBN</th>
+      <td>{{ book.isbn }}</td>
+    </tr>
+    <tr>
+      <th scope="row">LINK</th>
+      <td>{{ book.link }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% if session.get('user_id') %}
+<div class="card" style="margin-bottom: 1rem!important;">
+  <h5 class="card-header">리뷰 작성</h5>
+  <div class="card-body" style="margin-bottom: 1rem!important;">
+    <form action="{{ url_for('detail.write_review', id=book.id) }}" method="post">
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="1">
+          <label class="form-check-label" for="exampleRadios1">
+            ★☆☆☆☆
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="2">
+          <label class="form-check-label" for="exampleRadios1">
+            ★★☆☆☆
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="3">
+          <label class="form-check-label" for="exampleRadios1">
+            ★★★☆☆
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="4">
+          <label class="form-check-label" for="exampleRadios1">
+            ★★★★☆
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="5">
+          <label class="form-check-label" for="exampleRadios1">
+            ★★★★★
+          </label>
+        </div>
+      <div class="form-group" style="margin-top: 1rem!important">
+            <textarea class="form-control" name="review" id="review" placeholder="리뷰를 작성해주세요."></textarea> 
+      </div>
+      <input class="btn btn-primary" type="submit" value="리뷰 올리기" style="margin-top: 1rem!important; background-color: #7979D3;">
+    </form>
+  </div>
+</div>
+{% endif %}
+
+<div class="card" style="width: 100%%;">
+  <div class="card-header">
+    <h3>리뷰</h3>
+    <h4>총 {{ review_info|length }}개의 리뷰가 있습니다.</h5>
+    <h5>★ {{ average }}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for review in review_info %}
+    <li class="list-group-item">
+      <div>★ {{ review.rating }}</div> 
+      <div>{{ review.content }}</div> 
+      <small class="text-muted">{{ review.update_time }}</small>
+      {% if session['user_id'] == review.user_id %}
+        <a class="btn btn-danger btn-sm" href="{{ url_for('detail.delete_review', id=book.id, review_id = review.id) }}">삭제</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
