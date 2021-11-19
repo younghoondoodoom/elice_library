@@ -12,13 +12,22 @@ def register():
         return render_template('register.html')
     else:
         id = request.form['user_id']
-        pw = generate_password_hash(request.form['password'])
+        pw = request.form['password']
         nickname = request.form['user_nickname']
         telephone = request.form['telephone']
+        check_pw = request.form['check-password']
         
+        if pw != check_pw:
+            flash('비밀번호가 일치하지 않습니다.')
+            return redirect(url_for('user.register'))
+        
+        
+        
+        hash_pw = generate_password_hash(pw)
+
         user = UserInfo.query.filter(UserInfo.user_id == id).first()
         if not user:
-            user = UserInfo(id, pw, telephone, nickname)
+            user = UserInfo(id, hash_pw, telephone, nickname)
             db.session.add(user)
             db.session.commit()
             flash('elice 도서관에 오신걸 환영합니다!')
@@ -50,7 +59,7 @@ def login():
             flash(f"{user.user_nickname}님, 환영합니다.")
             return redirect(url_for('main.home'))
 
-@bp.route('/logout', methods=['GET', 'POST'])
+@bp.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('main.home'))    

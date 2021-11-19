@@ -65,3 +65,11 @@ class BookReview(db.Model):
     content         = db.Column(db.String(2000))
     update_time     = db.Column(db.DateTime, default=datetime.utcnow)
     
+class ReturnInfo(db.Model):
+    __tablename__  = 'returninfo'
+    
+    id              = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
+    user_id         = db.Column(db.String(100), db.ForeignKey('userinfo.user_id'), nullable=False)
+    book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable=False)
+    borrow_start    = db.Column(db.DateTime)
+    borrow_end      = db.Column(db.DateTime)
