@@ -9,9 +9,22 @@ bp = Blueprint('main', __name__)
 @bp.route('/')
 def home():
     page = request.args.get('page', type=int, default=1)
-    book_list = BookInfo.query.order_by(BookInfo.book_name.asc())
-    book_list = book_list.paginate(page, per_page=8, error_out=False)
-    return render_template('main.html', book_list=book_list)
+    books = BookInfo.query.order_by(BookInfo.book_name.asc())
+    pagination = books.paginate(page, per_page=8, error_out=False)
+    book_list = pagination.items
+
+    return render_template('main.html', book_list=book_list, pagination=pagination)
+
+
+@bp.route('/search', methods=['POST'])
+def search():
+    keyword = request.form['title']
+    search = BookInfo.query.filter(BookInfo.book_name.like(f"%{keyword}%"))
+    page = request.args.get('page', type=int)
+    pagination = search.paginate(page, per_page=8, error_out=False)
+    book_list = pagination.items
+    return render_template('main.html', book_list=book_list, pagination = pagination)
+    
 
 @bp.route('/borrow/<int:book_id>')
 def borrow(book_id):

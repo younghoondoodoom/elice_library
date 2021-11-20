@@ -42,6 +42,8 @@
             background-color: #7979D3;
             border-color: #7979D3;
         }
+
+        
     </style>
 {% endblock %}
 
@@ -51,7 +53,7 @@
     {% if book_list %}
     <div class="card-group">
         <ul class='card-listttt'>
-        {% for book in book_list.items %}
+        {% for book in book_list %}
                 <li class="card-itemm">
                     <div class="card">
                         <a href="/detail/{{ book.id }}">
@@ -67,16 +69,25 @@
         {% endfor %}
         <ul>
     </div>
+
+    <form action="{{ url_for('main.search') }}" method="post">
+        <div class='container' style='display:flex; flex-direction:row; justify-content:center'>
+            <div class="input-group mb-3" style='width: 500px;'>
+                <input type="text" name='title' class="form-control" placeholder="검색할 제목을 입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <button class="input-group-text" id="basic-addon2" type="submit">검색</button>
+            </div>
+        </div>
+    </form>
     
     <ul class="pagination justify-content-center">
-        {% if book_list.has_prev %}
-        <li class="page-item"><a class="page-link" href="?page={{ book_list.prev_num }}">이전</a></li>
+        {% if pagination.has_prev %}
+        <li class="page-item"><a class="page-link" href="?page={{ pagination.prev_num }}">이전</a></li>
         {% else %}
         <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">이전</a></li>
         {% endif %}
-        {% for page_num in book_list.iter_pages() %}
+        {% for page_num in pagination.iter_pages() %}
             {% if page_num %}
-                {% if page_num != book_list.page%}
+                {% if page_num != pagination.page%}
                     <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
                 {% else %}
                     <li class="page-item active"><a class="page-link" href="#" aria-current="page">{{ page_num }}</a></li>
@@ -85,8 +96,8 @@
                 <li class="disabled"><a class="page-link" href="#">...</a></li>
             {% endif %}
         {% endfor %}
-        {% if book_list.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ book_list.next_num }}">다음</a></li>
+        {% if pagination.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ pagination.next_num }}">다음</a></li>
         {% else %}
         <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">다음</a></li>
         {% endif %}
