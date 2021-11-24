@@ -10,7 +10,7 @@ class BookInfo(db.Model):
     author              = db.Column(db.String(100))
     publication_date    = db.Column(db.String(100))
     pages               = db.Column(db.Integer)
-    isbn                = db.Column(db.Integer)
+    isbn                = db.Column(db.String(100))
     description         = db.Column(db.String(2000))
     link                = db.Column(db.String(1000))
     stock               = db.Column(db.Integer, default=9)
@@ -73,3 +73,4 @@ class ReturnInfo(db.Model):
     book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable=False)
     borrow_start    = db.Column(db.DateTime)
     borrow_end      = db.Column(db.DateTime)
+    book_name       = db.Column(db.String(256), nullable=False)

@@ -2,6 +2,15 @@
 
 {% block title %}로그인 페이지{% endblock %}
 
+{% block style %}
+  <style>
+    label {
+      margin : 3px;
+    }
+    
+  </style>
+{% endblock %}
+
 {% block page_content %}
 <form method="post">
     {{form.csrf_token}}
@@ -13,6 +22,6 @@
         {{form.password.label("비밀번호")}}
         {{form.password(type="password", class="form-control", placeholder="비밀번호")}}
     </div>
-    <input class="btn btn-primary" type="submit" value="로그인" style='background-color: #7979D3;'>
+    <input class="btn btn-primary" type="submit" value="로그인" style='background-color: #7979D3; border-color: #7979D3; margin-top: 6px;'>
 </form>
 {% endblock %}

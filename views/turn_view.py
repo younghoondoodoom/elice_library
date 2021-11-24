@@ -36,7 +36,7 @@ def back(book_id):
         book_info = BookInfo.query.filter(BookInfo.id == book_id).first()
         
         #반납 테이블에 넣어주기
-        returninfo = ReturnInfo(user_id = session['user_id'], book_id = book_id, borrow_start = borrow_info.borrow_start, borrow_end = borrow_info.borrow_end)
+        returninfo = ReturnInfo(user_id = session['user_id'], book_id = book_id, borrow_start = borrow_info.borrow_start, borrow_end = borrow_info.borrow_end, book_name = book_info.book_name)
 
         book_info.stock += 1
         db.session.delete(borrow_info)
