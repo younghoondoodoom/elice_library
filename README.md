@@ -43,6 +43,10 @@
 
 # 사용 방법
 
+## 0. requirement.txt 설치
+    터미널에 다음과 같이 입력
+        pip install -r requirements.txt
+
 ## 1. 데이터베이스 초기화 및 틀 형성
     터미널에 다음과 같이 입력
         python3 migration.py
