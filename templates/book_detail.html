@@ -20,7 +20,7 @@
 
   <p class="card-text">{{ book.description }}</p>
 
-  <a href="{{ url_for('main.borrow', book_id=book.id) }}" class="btn btn-primary" style='background-color: #7979D3;'>대여하기</a>
+  <a href="{{ url_for('main.borrow', book_id=book.id) }}" class="btn btn-primary" style='background-color: #7979D3; border-color: #7979D3;'>대여하기</a>
 </div>
 
 <table class="table">
@@ -98,7 +98,7 @@
       <div class="form-group" style="margin-top: 1rem!important">
             <textarea class="form-control" name="review" id="review" placeholder="리뷰를 작성해주세요."></textarea> 
       </div>
-      <input class="btn btn-primary" type="submit" value="리뷰 올리기" style="margin-top: 1rem!important; background-color: #7979D3;">
+      <input class="btn btn-primary" type="submit" value="리뷰 올리기" style="margin-top: 1rem!important; background-color: #7979D3; border-color: #7979D3;">
     </form>
   </div>
 </div>

@@ -43,7 +43,7 @@ def back(book_id):
         db.session.add(returninfo)
         db.session.commit()
         
-        flash('정상적으로 반납 되었습니다.')
+        flash(f'"{book_info.book_name}"를 정상적으로 반납 되었습니다.')
         
         return redirect(url_for('turn.home'))
     else:

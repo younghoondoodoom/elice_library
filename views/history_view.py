@@ -23,18 +23,18 @@ def history():
         flash('로그인 후 사용해주세요.')
         return redirect(url_for('user.login'))
 
-@bp.route('/search', methods=["POST"])
-def search():
-    if session.get('user_id'):
-        keyword = request.form['title']
-        search = ReturnInfo.query.filter(ReturnInfo.book_name.like(f"%{keyword}%")).order_by(ReturnInfo.borrow_start.desc())
-        page = request.args.get('page', type=int)
-        pagination = search.paginate(page, per_page=8, error_out=False)
-        borrow_list = pagination.items
-        book_list = []
+# @bp.route('/search', methods=["GET"])
+# def search():
+#     if session.get('user_id'):
+#         keyword = request.args.get('keyword', type=str, default='')
+#         page = request.args.get('page', type=int, default=1)
+#         search = ReturnInfo.query.filter(ReturnInfo.book_name.like(f"%{keyword}%")).order_by(ReturnInfo.borrow_start.desc())
+#         pagination = search.paginate(page, per_page=8, error_out=False)
+#         borrow_list = pagination.items
+#         book_list = []
         
-        for i in range(len(borrow_list)):
-            book = BookInfo.query.filter(BookInfo.id == borrow_list[i].book_id).first()
-            book_list.append((book, borrow_list[i]))
+#         for i in range(len(borrow_list)):
+#             book = BookInfo.query.filter(BookInfo.id == borrow_list[i].book_id).first()
+#             book_list.append((book, borrow_list[i]))
         
-        return render_template('history.html', book_list=book_list, pagination = pagination)
+#         return render_template('history.html', book_list=book_list, pagination = pagination)

@@ -40,7 +40,7 @@ def borrow(book_id):
     already_borrowed = BorrowInfo.query.filter(BorrowInfo.book_id == book_id).first()
     
     if already_borrowed:
-        flash('이미 대여한 책입니다.')
+        flash(f'"{book.book_name}"은 이미 대여한 책입니다.')
         return redirect(url_for('main.home'))
     
     if book.stock > 0:
@@ -50,8 +50,8 @@ def borrow(book_id):
         endtime = BorrowInfo.query.filter(BorrowInfo.book_id == book_id).order_by(BorrowInfo.id.desc()).first()
         endtime.borrow_end = endtime.borrow_start + datetime.timedelta(days=7)
         db.session.commit()
-        flash('정상적으로 대여가 완료 되었습니다.')
+        flash(f'"{book.book_name}"을 정상적으로 대여가 완료 되었습니다.')
     else:
-        flash(f'{book.book_name}의 재고가 없습니다.')
+        flash(f'"{book.book_name}"의 재고가 없습니다.')
     
     return redirect(url_for('main.home'))

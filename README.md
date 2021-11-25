@@ -45,21 +45,15 @@
 
 ## 1. 데이터베이스 초기화 및 틀 형성
     터미널에 다음과 같이 입력
-    ```
         python3 migration.py
-    ```
 
 ## 2. 데이터베이스에 기본 데이터 삽입
     터미널에 다음과 같이 입력
-    ```
         python3 load_data.py
-    ```
 
 ## 3. 본인의 환경 변수로 SECRET KEY와 DATABASE_URI 설정하기
     터미널에 환경 변수로 SECRET_KEY와 DATABASE_URI를 등록한다.
 
 ## 4. 실행
     터미널에 다음과 같이 입력
-    ```
         python3 app.py
-    ```

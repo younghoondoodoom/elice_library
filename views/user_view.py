@@ -22,18 +22,7 @@ def register():
             password = form.password.data
             nickname = form.nickname.data
             telephone = form.telephone.data
-            # 비밀번호 확인 
-            # 비밀번호가 10자리 이상이면 영문 숫자 특사문자 중 2개 이상
-            # if not any(isinstance(char, str) for char in password):
-            #     flash('비밀번호는 영어 대소문자가 포함되어야합니다.')
-            #     return redirect(url_for('user.register', form = form))
-            # if not any(char.isdigit() for char in password):
-            #     flash('비밀번호는 숫자가 포함되어야합니다.')
-            #     return redirect(url_for('user.register', form = form))
-            # special_char = '`~!@#$%^&*()_+|\\}{[]":;\'?><,./'
-            # if not any(char in special_char for char in password):
-            #     flash('비밀번호는 특수문자가 포함되어야합니다.')
-            #     return redirect(url_for('user.register', form=form))
+          
             if len(password) >= 10:
                 count = 0
                 if password_match_string(password) is True:
@@ -90,8 +79,11 @@ def login():
             password = form.password.data
             
             user = UserInfo.query.filter(UserInfo.user_id == email).first()
-        
-            if user is not None and not check_password_hash(user.user_pw, password):
+
+            if user is None:
+                flash('등록되지 않는 이메일입니다.')
+                return redirect(url_for('user.login', form = form))
+            elif not check_password_hash(user.user_pw, password):
                 flash('비밀번호가 틀렸습니다.')
                 return redirect(url_for('user.login', form = form))
             else:

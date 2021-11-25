@@ -47,6 +47,10 @@
 
 {% block title %}대여 기록 페이지{% endblock %}
 
+{% block script %}
+    
+{% endblock %}
+
 {% block page_content %}    
     {% if book_list %}
     <div class="card-group">
@@ -67,16 +71,17 @@
             {% endfor %}
         </ul>
     </div>
-
-    <form action="{{ url_for('history.search') }}" method="post">
+    <!--
+    <form onsubmit="search1()">
         <div class='container' style='display:flex; flex-direction:row; justify-content:center'>
             <div class="input-group mb-3" style='width: 500px;'>
-                <input type="text" name='title' class="form-control" placeholder="검색할 제목을 입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" name='keyword' class="form-control" id="keyword" placeholder="검색할 제목을 입력해주세요." aria-label="Recipient's username" aria-describedby="basic-addon2" {% if keyword != None %} value={{keyword}} {% endif %}>
                 <button class="input-group-text" id="basic-addon2" type="submit">검색</button>
             </div>
         </div>
-    </form>
-
+    </form> 
+    -->
+    <!--페이지네이션 기능-->
     <ul class="pagination justify-content-center">
         {% if pagination.has_prev %}
         <li class="page-item"><a class="page-link" href="?page={{ pagination.prev_num }}">이전</a></li>
@@ -100,6 +105,7 @@
         <li class="page-item disabled"><a class="page-link" aria-disabled="true" href="#">다음</a></li>
         {% endif %}
     </ul>
+
 
     {% else %}
     <p>대여한 책이 없습니다.</p>
