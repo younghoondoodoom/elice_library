@@ -19,14 +19,22 @@
             padding-inline-start: 40px;
         }
         .card-itemm {
-            width: 230px;
+            width: 250px;
             margin: 0 3px 6px;
             float: left;
             display: list-item;
             text-align: -webkit-match-parent;
         }
         .card {
+            position: relative;
             height: 300px;
+            width: 250px;
+        }
+        .card-body {
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .btn {
             color: white;
@@ -41,6 +49,22 @@
         .page-item.active .page-link {
             background-color: #7979D3;
             border-color: #7979D3;
+        }
+        .book-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: absolute;
+            width: 100%;
+            font-size: 1.15em;
+            font-weight: 600;
+            height: 30px;
+        }
+        .card-text {
+            bottom: 10px;            
+        }
+        p {
+            margin-top: 50px;
         }
 
         
@@ -60,9 +84,9 @@
                             <img src="{{ url_for('static', filename='book_img/{0}'.format(book.book_img_path)) }}"  class="card-img-top" alt="{{ book.book_name }}">
                         </a>
                         <div class="card-body">
-                            <a class="card-title" href="/detail/{{ book.id }}" style="font-weight:bold;">{{ book.book_name }}</a>
-                            <p class="card-text">{{ book.stock }}권 남음</p>
-                            <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>대여하기</a>
+                            <a class="card-title book-title" href="/detail/{{ book.id }}" style="font-weight:bold;">{{ book.book_name }}</a>
+                            <p class="card-text">잔여 수량:{{ book.stock }}</p>
+                            <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn btn-primary" role="button" data-bs-toggle="button" style='background-color: #7979D3; border-color: #7979D3;'>대여하기</a>
                         </div>
                     </div>
                 </li>

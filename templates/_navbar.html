@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark border-bottom" style="background-color: #7979D3;">
     <div class="container">
-        <a class="navbar-brand" href="{{ url_for('main.home') }}">/* elice */ 도서관</a>
+        <a class="navbar-brand" href="{{ url_for('main.home') }}">
+            <img class="bi me-2" id='logo' src="{{url_for('static', filename='logo/elice_face.png')}}"></img> /*elice library*/
+        </a>
         <button
             class="navbar-toggler ml-auto"
             type="button"

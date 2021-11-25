@@ -7,33 +7,38 @@
     label {
       margin : 3px;
     }
+    form {
+      width: 700px;
+      margin: auto !important;
+    }
     
   </style>
 {% endblock %}
 
 {% block page_content %}
-<form method="POST">
+<form method="POST" class="card sign-form p-4 mt-5">
   {{form.csrf_token}}
-  <div class="form-group">
+  <h3>회원가입</h3>
+  <div class="form-group" style="margin:5px 0 5px 0;">
     {{form.email.label("이메일")}}
     {{form.email(type="email", class="form-control", placeholder="이메일을 입력해주세요.")}}
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin:5px 0 5px 0;">
     {{form.password.label("비밀번호")}}
     {{form.password(type="password", class="form-control", placeholder="비밀번호는 영어 대소문자, 특수문자, 숫자만 이용 가능합니다.")}}
   </div>
-    <div class="form-group">
+    <div class="form-group" style="margin:5px 0 5px 0;">
     {{form.re_password.label("비밀번호 확인")}}
     {{form.re_password(type="password", class="form-control", placeholder="비밀번호를 확인해주세요.")}}
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin:5px 0 5px 0;">
     {{form.nickname.label("닉네임")}}
     {{form.nickname(type="nickname", class="form-control", placeholder="닉네임을 입력해주세요.")}}
   </div>
-  <div class="form-group">
+  <div class="form-group" style="margin:5px 0 5px 0;">
     {{form.telephone.label("전화번호")}}
     {{form.telephone(type="telephone", class="form-control", placeholder="전화번호는 숫자만 입력해주세요.")}}
   </div>
-  <input class="btn btn-primary" type="submit" value="회원가입!" style='background-color: #7979D3; border-color: #7979D3; margin-top: 6px;'/>
+  <input class="btn btn-primary" type="submit" value="회원가입" style='background-color: #7979D3; border-color: #7979D3; margin-top: 15px;'/>
 </form>
 {% endblock %}

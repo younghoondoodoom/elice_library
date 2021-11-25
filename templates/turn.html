@@ -19,14 +19,22 @@
             padding-inline-start: 40px;
         }
         .card-itemm {
-            width: 230px;
+            width: 250px;
             margin: 0 3px 6px;
             float: left;
             display: list-item;
             text-align: -webkit-match-parent;
         }
         .card {
+            position: relative;
             height: 300px;
+            width: 250px;
+        }
+        .card-body {
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .btn {
             color: white;
@@ -35,12 +43,28 @@
             left: 66px;
             font-size: 18px;
         }
+        .page-link {
+            color: #7979D3;
+        }
         .page-item.active .page-link {
             background-color: #7979D3;
             border-color: #7979D3;
         }
-        .page-link {
-            color: #7979D3;
+        .book-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            position: absolute;
+            width: 100%;
+            font-size: 1.15em;
+            font-weight: 600;
+            height: 30px;
+        }
+        .card-text {
+            bottom: 10px;            
+        }
+        p {
+            margin-top: 50px;
         }
     </style>
 {% endblock %}
@@ -58,7 +82,7 @@
                             <img src="{{ url_for('static', filename='book_img/{0}'.format(book[0].book_img_path)) }}"  class="card-img-top" alt="{{ book[0].book_name }}">
                         </a>
                         <div class="card-body">
-                            <a class="card-title" href="/detail/{{ book[0].id }}">{{ book[0].book_name }}</a>
+                            <a class="card-title book-title" href="/detail/{{ book[0].id }}">{{ book[0].book_name }}</a>
                             <p class="card-text">{{ book[1].borrow_start.strftime('%Y-%m-%d')  }} ~ {{ book[1].borrow_end.strftime('%Y-%m-%d') }}</p>
                             <a href={{ url_for('turn.back', book_id=book[0].id) }} class="btn" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>반납하기</a>
                         </div>
