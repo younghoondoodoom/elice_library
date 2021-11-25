@@ -1,5 +1,8 @@
 from db_connect import db
 from datetime import datetime
+import pytz
+
+kst = pytz.timezone('Asia/Seoul')
 
 class BookInfo(db.Model):
     __tablename__ = 'bookinfo'
@@ -51,7 +54,7 @@ class BorrowInfo(db.Model):
     user_id         = db.Column(db.String(100), db.ForeignKey('userinfo.user_id'), nullable=False)
     book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable = False)
     book_name       = db.Column(db.String(256), nullable = False)
-    borrow_start    = db.Column(db.DateTime, default=datetime.utcnow)
+    borrow_start    = db.Column(db.DateTime, default=datetime.now(kst))
     borrow_end      = db.Column(db.DateTime)
 
     
@@ -63,7 +66,7 @@ class BookReview(db.Model):
     book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable=False)
     rating          = db.Column(db.Float)
     content         = db.Column(db.String(2000))
-    update_time     = db.Column(db.DateTime, default=datetime.utcnow)
+    update_time     = db.Column(db.DateTime, default=datetime.now(kst))
     
 class ReturnInfo(db.Model):
     __tablename__  = 'returninfo'
