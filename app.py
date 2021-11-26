@@ -13,8 +13,8 @@ app.register_blueprint(detail_view.bp)
 app.register_blueprint(turn_view.bp)
 app.register_blueprint(history_view.bp)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:dudgns2684@localhost:3306/book_borrow?charset=utf8mb4"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = "OF6JFR5EZ8W4BQ14DRJQ263EER4YG5966E1GAMV4AGDGJ5AW5B"
 
 app.secret_key = os.environ.get('SECRET_KEY')
 
@@ -24,4 +24,4 @@ db.init_app(app)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('0.0.0.0', port=80, debug=False)
