@@ -13,10 +13,8 @@ app.register_blueprint(detail_view.bp)
 app.register_blueprint(turn_view.bp)
 app.register_blueprint(history_view.bp)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_pyfile('config.py')
 
-app.secret_key = os.environ.get('SECRET_KEY')
 
 
 db.init_app(app)
