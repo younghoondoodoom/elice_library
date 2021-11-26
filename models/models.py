@@ -50,7 +50,7 @@ class UserInfo(db.Model):
 class BorrowInfo(db.Model):
     __tablename__ = 'borrowinfo'
     
-    id              = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id              = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id         = db.Column(db.String(100), db.ForeignKey('userinfo.user_id'), nullable=False)
     book_id         = db.Column(db.Integer, db.ForeignKey('bookinfo.id'), nullable = False)
     book_name       = db.Column(db.String(256), nullable = False)
