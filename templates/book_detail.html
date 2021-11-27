@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <th scope="row">평점</th>
-      <td>★{{ book.rating }}</td>
+      <td>⭐{{ book.rating }}</td>
     </tr>
     <tr>
       <th scope="row">출판사</th>
@@ -55,7 +55,7 @@
     </tr>
     <tr>
       <th scope="row">LINK</th>
-      <td>{{ book.link }}</td>
+      <td><a href={{ book.link }}>{{ book.link }}</a></td>
     </tr>
   </tbody>
 </table>
@@ -68,31 +68,31 @@
       <div class="form-check">
           <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="1" checked>
           <label class="form-check-label" for="exampleRadios1">
-            ★☆☆☆☆
+            ⭐☆☆☆☆
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="2">
           <label class="form-check-label" for="exampleRadios1">
-            ★★☆☆☆
+            ⭐⭐☆☆☆
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="3">
           <label class="form-check-label" for="exampleRadios1">
-            ★★★☆☆
+            ⭐⭐⭐☆☆
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="4">
           <label class="form-check-label" for="exampleRadios1">
-            ★★★★☆
+            ⭐⭐⭐⭐☆
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="star" id="exampleRadios1" value="5">
           <label class="form-check-label" for="exampleRadios1">
-            ★★★★★
+            ⭐⭐⭐⭐⭐
           </label>
         </div>
       <div class="form-group" style="margin-top: 1rem!important">
@@ -108,12 +108,12 @@
   <div class="card-header">
     <h3>리뷰</h3>
     <h4>총 {{ review_info|length }}개의 리뷰가 있습니다.</h5>
-    <h5>★ {{ average }}</h5>
+    <h5>⭐ {{ average }}</h5>
   </div>
   <ul class="list-group list-group-flush">
     {% for review in review_info %}
     <li class="list-group-item">
-      <div>★ {{ review.rating }}</div> 
+      <div>⭐ {{ review.rating }}</div> 
       <div>{{ review.content }}</div> 
       <small class="text-muted">{{ review.update_time }}</small>
       {% if session['user_id'] == review.user_id %}

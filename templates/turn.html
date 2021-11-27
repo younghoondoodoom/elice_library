@@ -69,7 +69,7 @@
     </style>
 {% endblock %}
 
-{% block title %}반납 페이지{% endblock %}
+{% block title %}{{ session['nickname'] }} 님의 반납 페이지{% endblock %}
 
 {% block page_content %}    
     {% if book_list %}

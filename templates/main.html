@@ -40,7 +40,7 @@
             color: white;
             position: absolute;
             bottom: 8px;
-            left: 66px;
+            left: 30%;
             font-size: 18px;
         }
         .page-link {
@@ -61,17 +61,19 @@
             height: 30px;
         }
         .card-text {
-            bottom: 10px;            
+            bottom: 40px;
+            right: 20px;            
         }
         p {
             margin-top: 50px;
+            position: absolute;
         }
-
+        
         
     </style>
 {% endblock %}
 
-{% block title %}메인 페이지{% endblock %}
+{% block title %}/*elice library*/ 메인 페이지{% endblock %}
 
 {% block page_content %}    
     {% if book_list %}
@@ -87,6 +89,7 @@
                             <a class="card-title book-title" href="/detail/{{ book.id }}" style="font-weight:bold;">{{ book.book_name }}</a>
                             <p class="card-text">잔여 수량:{{ book.stock }}</p>
                             <a href={{ url_for('main.borrow', book_id=book.id) }} class="btn btn-primary" role="button" data-bs-toggle="button" style='background-color: #7979D3; border-color: #7979D3;'>대여하기</a>
+                            <p class="rating">⭐ {{ book.rating }}</p>
                         </div>
                     </div>
                 </li>

@@ -66,10 +66,11 @@
         p {
             margin-top: 50px;
         }
+        
     </style>
 {% endblock %}
 
-{% block title %}대여 기록 페이지{% endblock %}
+{% block title %}{{ session['nickname'] }} 님의 대여 기록 페이지{% endblock %}
 
 {% block script %}
     
@@ -89,7 +90,7 @@
                             <a class="card-title book-title" href="/detail/{{ book[0].id }}" style='font-weight: bold;'>{{ book[0].book_name }}</a>
                             <p class="card-text">{{ book[1].borrow_start.strftime('%Y-%m-%d')  }} ~ {{ book[1].borrow_end.strftime('%Y-%m-%d') }}</p>
                             <a href={{ url_for('main.borrow', book_id=book[0].id) }} class="btn" role="button" data-bs-toggle="button" style='background-color: #7979D3;'>재대여하기</a>
-                        </div>
+                            </div>
                     </div>
                 </li>
             {% endfor %}
