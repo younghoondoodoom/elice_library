@@ -19,7 +19,7 @@ def home():
 @bp.route('/search', methods=['POST'])
 def search():
     keyword = request.form['title']
-    search = BookInfo.query.filter(BookInfo.book_name.like(f"%{keyword}%"))
+    search = BookInfo.query.filter(BookInfo.book_name.ilike(f"%{keyword}%"))
     page = request.args.get('page', type=int)
     pagination = search.paginate(page, per_page=8, error_out=False)
     book_list = pagination.items

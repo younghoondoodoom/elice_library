@@ -1,4 +1,6 @@
-# 3기_도서관대출서비스_이름
+# 3기_도서관대출서비스_최영훈
+
+## Azure: http://elice-kdt-3rd-vm-103.koreacentral.cloudapp.azure.com
 
 ## 사전 작업
     -전체 파일 구조 및 환경 구성
@@ -44,20 +46,16 @@
 # 사용 방법
 
 ## 0. requirement.txt 설치
-    터미널에 다음과 같이 입력
-        pip install -r requirements.txt
+    pip install -r requirements.txt
 
 ## 1. 데이터베이스 초기화 및 틀 형성
-    터미널에 다음과 같이 입력
-        python3 migration.py
+    python3 migration.py or python migration.py
 
 ## 2. 데이터베이스에 기본 데이터 삽입
-    터미널에 다음과 같이 입력
-        python3 load_data.py
+    python3 load_data.py or python load_data.py
 
 ## 3. 본인의 환경 변수로 SECRET KEY와 DATABASE_URI 설정하기
-    터미널에 환경 변수로 SECRET_KEY와 DATABASE_URI를 등록한다.
+    서버나 본인 로컬에 config.py를 만들어서 secret key, database_uri, config 설정을 등록한다.
 
 ## 4. 실행
-    터미널에 다음과 같이 입력
-        python3 app.py
+    python3 app.py or python app.py

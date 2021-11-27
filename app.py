@@ -1,5 +1,3 @@
-import os 
-
 from flask import Flask
 from db_connect import db
 
