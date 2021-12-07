@@ -53,3 +53,23 @@ def back(book_id):
     else:
         flash('로그인 후 사용해주세요.')
         return redirect(url_for('user.login'))
+
+@bp.route('/search', methods=['GET'])
+def search():
+    if session.get('user_id'):
+        user_id = session.get('user_id')
+        keyword = request.args.get('title', type=str, default='')
+        page = request.args.get('page', type=int, default=0)
+        search = BorrowInfo.query.filter(BorrowInfo.user_id == user_id, BorrowInfo.book_name.ilike(f"%{keyword}%"))
+        pagination = search.paginate(page, per_page=8, error_out=False)
+        borrow_list = pagination.items
+        book_list = []
+        
+        for i in range(len(borrow_list)):
+            book = BookInfo.query.filter(BookInfo.id == borrow_list[i].book_id).first()
+            book_list.append((book, borrow_list[i]))
+        
+        return render_template('turn.html', book_list=book_list, pagination = pagination)
+    else:
+        flash('로그인 후 사용해주세요.')
+        return redirect(url_for('user.login'))

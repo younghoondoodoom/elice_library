@@ -16,14 +16,14 @@ def home():
     return render_template('main.html', book_list=book_list, pagination=pagination)
 
 
-@bp.route('/search', methods=['POST'])
+@bp.route('/search', methods=['GET'])
 def search():
-    keyword = request.form['title']
+    keyword = request.args.get('title', type=str, default="")
     search = BookInfo.query.filter(BookInfo.book_name.ilike(f"%{keyword}%"))
-    page = request.args.get('page', type=int)
+    page = request.args.get('page', type=int, default=1)
     pagination = search.paginate(page, per_page=8, error_out=False)
     book_list = pagination.items
-    return render_template('main.html', book_list=book_list, pagination = pagination)
+    return render_template('main.html', book_list=book_list, pagination = pagination, keyword = keyword)
     
 
 @bp.route('/borrow/<int:book_id>')
